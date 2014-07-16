@@ -97,16 +97,34 @@ When(/^I type "(.*?)" into the "(.*?)" text field$/) do |text, mark|
 end
 ````
 
-* Run your test and watch it fail
+* Run your test
+````
+cucumber Frank/features -t @wip
+````
+
+* Taking a long time! Remember the 'wait_for_element_to_exist' part? It doesn't exist!
+
+* Do the work in code to make the "When" part of your test pass
+  * Create a TextField in the storyboard
+  * Give it an accessibility label
+
+* How does an accessibility label help us?
+  * Let's find out how using Frank's excellent selector tool.
+````
+frank build
+frank launch
+frank inspect
+````
+
+* Run your test again
 ````
 frank build
 cucumber Frank/features -t @wip
 ````
 
-* Do the work in code to make your test pass
-  * Create a TextField in the storyboard
-  * Make the textfield delegate the ViewController
+* Tests are now running correctly and failing
   * Put the following code in the ViewController
+  * Make the textfield delegate the ViewController
 ````
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -126,24 +144,6 @@ cucumber Frank/features -t @wip
 ````
 
 * Now let's run our test again.
-````
-frank build
-cucumber Frank/features -t @wip
-````
-
-* Still failing! Let's find out why.
-````
-frank build
-frank launch
-frank inspect
-````
-
-* Still failing! What's a "Spaceable Word" field is?
-
-* Add an accessibility label of "Spaceable Word"
-  * Accessibility labels are labels that you can only see if accessiblity is turned on.
-
-* Run your test again
 ````
 frank build
 cucumber Frank/features -t @wip
