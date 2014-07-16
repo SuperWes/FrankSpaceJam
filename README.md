@@ -122,7 +122,7 @@ frank build
 cucumber Frank/features -t @wip
 ````
 
-* Tests are now running correctly and failing
+* Tests are now running correctly and failing on the assertion
   * Put the following code in the ViewController
   * Make the textfield delegate the ViewController
 ````
