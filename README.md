@@ -67,7 +67,7 @@ When I type "Cool Stuff" into the "Spaceable Word" text field
 Then I should see "C o o l   S t u f f"
 ````
 
-* Run it and watch it fail
+* Run it
 ````
 cucumber Frank/features -t @wip
 ````
@@ -138,9 +138,10 @@ frank launch
 frank inspect
 ````
 
-* Still failing! How do I know what a "Spaceable Word" field is?
+* Still failing! What's a "Spaceable Word" field is?
 
 * Add an accessibility label of "Spaceable Word"
+  * Accessibility labels are labels that you can only see if accessiblity is turned on.
 
 * Run your test again
 ````
@@ -149,3 +150,4 @@ cucumber Frank/features -t @wip
 ````
 
 SWEET APP! Ship it!
+Go back to slides
