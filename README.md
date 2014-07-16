@@ -8,7 +8,7 @@ Tutorial Project to teach Frank iOS Testing
 gem install frank-cucumber
 ````
 
-* Create a new Universal iOS project called "Space Jam" using the "Single View" template
+* Create a new iPhone iOS project called "Space Jam" using the "Single View" template
 
 * Set up your project for frank
   * Navigate to the project root directory on the command line and run
@@ -45,7 +45,8 @@ cucumber Frank/features
 
 * Watch it fail
 
-* Add a label that says "Space Jam" to the app
+* Write the code to make it pass
+  * Create a label in the storyboard editor that says "Space Jam"
 
 * Run it again and watch it pass
 ````
@@ -57,14 +58,13 @@ cucumber Frank/features
   * Notice that the full source for these steps is on GitHub
 
 * Make your next test
-  * Navigate to Frank/features
-  * Add the following to the 'spacejam.feature' file
+  * Add the following to the 'Frank/features/spacejam.feature' file
 ````
 @wip
 Scenario: As a user I want to be able to add spaces between every letter of a word
 Given I launch the app
-When I type “XXXXX” into the “Spaceable Word” text field
-Then I should see “X X X X X” in the "Spaceable Word" text field
+When I type "Cool Stuff" into the "Spaceable Word" text field
+Then I should see "C o o l   S t u f f"
 ````
 
 * Run it and watch it fail
@@ -79,40 +79,73 @@ cucumber Frank/features -t @wip
 
 * Let’s make a step definition file.
   * We didn't get this last time because we used built in steps
-  * Navigate to Frank/features/step_definitions
-  * Create an empty 'spacejam.rb' file
-  * Copy the steps from the terminal output into the .rb file
-
-* Run the test again to see that it no longer suggests a stub
-  * From here we can either implement the story or write the ruby code to actually do the automation
-  * Normally I would advocate trying to write the ruby code
-  *I want to make it easy to follow so let's make it work in code first and then go back.
-
-* Do the work in code to make that manual test pass
-
-* Now let's run our test again.
-  * Still pending
+  * Frank provides test stubs so that you don't need to learn regex
+  * Copy these test stubs
+  * Create a file at 'Frank/features/step_definitions/spacejam.rb' and paste in the stubs
 
 * Let's fill our stub in with actual ruby code. I'm an iOS Developer I don't know ruby!
   * Use this for reference:
   * http://rdoc.info/gems/frank-cucumber/frames
+  * Good methods to reference might be 'wait_for_element_to_exist_and_then_touch_it' 'wait_for_nothing_to_be_animating' and 'type_into_keyboard'
 
-* How do I know what a "Spaceable Word" field is?
+* Fill in the step definition
+````
+When(/^I type "(.*?)" into the "(.*?)" text field$/) do |text, mark|
+  wait_for_element_to_exist_and_then_touch_it "view marked:'#{mark}'"
+  wait_for_nothing_to_be_animating
+  type_into_keyboard text
+end
+````
+
+* Run your test and watch it fail
+````
+frank build
+cucumber Frank/features -t @wip
+````
+
+* Do the work in code to make your test pass
+  * Create a TextField in the storyboard
+  * Make the textfield delegate the ViewController
+  * Put the following code in the ViewController
+````
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    return [textField resignFirstResponder];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSString *result = @"";
+    for (int i = 0; i<textField.text.length; i++) {
+        NSRange range = {i, 1};
+        result = [result stringByAppendingString:[textField.text substringWithRange:range]];
+        result = [result stringByAppendingString:@" "];
+    }
+    textField.text = result;
+}
+````
+
+* Now let's run our test again.
+````
+frank build
+cucumber Frank/features -t @wip
+````
+
+* Still failing! Let's find out why.
 ````
 frank build
 frank launch
 frank inspect
 ````
 
-* Fill in the step definitions
-````
-Something
-````
+* Still failing! How do I know what a "Spaceable Word" field is?
+
+* Add an accessibility label of "Spaceable Word"
 
 * Run your test again
 ````
 frank build
-cucumber Frank/features
+cucumber Frank/features -t @wip
 ````
 
 SWEET APP! Ship it!
