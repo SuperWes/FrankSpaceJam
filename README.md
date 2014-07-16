@@ -106,7 +106,7 @@ cucumber Frank/features -t @wip
 
 * Do the work in code to make the "When" part of your test pass
   * Create a TextField in the storyboard
-  * Give it an accessibility label
+  * Give it an accessibility label of "Spaceable Word"
 
 * How does an accessibility label help us?
   * Let's find out how using Frank's excellent selector tool.
