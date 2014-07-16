@@ -8,32 +8,38 @@ Tutorial Project to teach Frank iOS Testing
 gem install frank-cucumber
 ````
 
-* Create an iOS project
+* Create a new Universal iOS project called "Space Jam" using the "Single View" template
 
 * Set up your project for frank
   * Navigate to the project root directory on the command line and run
 ````
 frank setup
 ````
+  * Choose option 1 when prompted
+  * What this does is set up your project for frank and add an example test
 
-* Run the sample tests
+* Build your app for frank testing
+````
+frank build
+````
+  * Frank creates a separate project called a "Frankified" project in a "Frank" directory. This project has hooks to allow for automation
+
+* Run the sample test
 ````
 cucumber Frank/features
 ````
 
 * Write a test
-  * Navigate to Frank/features
-  * Create a 'spacejam.feature' file with the following text
+  * Create a 'Frank/features/spacejam.feature' file with the following text
 ````
 Feature: Make an app that demonstrates frank
 Scenario: As a user I want to see the app title when I launch the app
 Given I launch the app
-Then I should see “Space Jam”
+Then I should see "Space Jam"
 ````
 
 * Run it
 ````
-frank build
 cucumber Frank/features
 ````
 
