@@ -1,0 +1,1 @@
+/Users/we.ehrlichman/workspace/FrankSpaceJam/SpaceJam/Frank/frankified_build/SpaceJam.app
